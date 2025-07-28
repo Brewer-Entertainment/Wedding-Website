@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scroll Animation Demo</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 300vh; /* Make page scrollable */
+      background: linear-gradient(to bottom, #1e3c72, #2a5298);
+      color: white;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      background: rgba(0,0,0,0.5);
+      font-size: 1.5rem;
+      font-weight: bold;
+      z-index: 10;
+    }
+    section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 100vh 20px 50vh; /* top and bottom padding for scroll space */
+      text-align: center;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    p {
+      font-size: 1.25rem;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <header>My Scroll Animation Site</header>
+
+  <section>
+    <h1 id="title">Welcome to My Website</h1>
+    <p id="text">
+      Scroll down to see the animation in action! This text and title will fade out and slide up as you scroll.
+    </p>
+  </section>
+
+  <script>
+    const title = document.getElementById('title');
+    const text = document.getElementById('text');
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+
+      // Calculate scroll progress (0 to 1) for the animation trigger range
+      const start = windowHeight * 0.5;
+      const end = windowHeight * 1.5;
+      let progress = (scrollY - start) / (end - start);
+      progress = Math.min(Math.max(progress, 0), 1);
+
+      // Fade out and slide up based on scroll progress
+      const opacity = 1 - progress;
+      const translateY = -50 * progress; // slide up 50px max
+
+      title.style.opacity = opacity;
+      title.style.transform = `translateY(${translateY}px)`;
+
+      text.style.opacity = opacity;
+      text.style.transform = `translateY(${translateY}px)`;
+    });
+  </script>
+</body>
+</html>
