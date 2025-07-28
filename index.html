@@ -3,83 +3,347 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Scroll Animation Demo</title>
+  <title>Wedding Entertainment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat&display=swap" rel="stylesheet" />
   <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
     body {
+      margin: 0; 
+      font-family: 'Montserrat', sans-serif;
+      color: #2c2c2c;
+      background: #fff;
+      scroll-behavior: smooth;
+    }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      height: 300vh; /* Make page scrollable */
-      background: linear-gradient(to bottom, #1e3c72, #2a5298);
-      color: white;
     }
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 1rem 2rem;
-      background: rgba(0,0,0,0.5);
-      font-size: 1.5rem;
-      font-weight: bold;
-      z-index: 10;
+    a {
+      text-decoration: none;
+      color: inherit;
     }
-    section {
-      max-width: 800px;
+    button {
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 24px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 100vh 20px 50vh; /* top and bottom padding for scroll space */
+      padding: 0 20px;
+    }
+
+    /* Header / Hero */
+    header {
+      background: linear-gradient(135deg, #c49b63 0%, #72543d 100%);
+      color: white;
+      padding: 100px 20px 80px;
       text-align: center;
     }
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+    header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 0.3em;
+      line-height: 1.1;
     }
-    p {
-      font-size: 1.25rem;
-      line-height: 1.6;
+    header p {
+      font-size: 1.3rem;
+      margin-bottom: 1.5em;
       max-width: 600px;
-      margin: 0 auto;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.85;
+    }
+    .btn-primary {
+      background-color: #fff;
+      color: #72543d;
+      font-weight: 700;
+      margin-right: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .btn-primary:hover {
+      background-color: #f7f1e9;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid #fff;
+      color: white;
+      font-weight: 600;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Services Section */
+    section.services {
+      padding: 80px 20px;
+      background: #f7f1e9;
+      text-align: center;
+    }
+    section.services h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #72543d;
+    }
+    .services-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+    .service-item {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      flex: 1 1 280px;
+      max-width: 320px;
+      transition: transform 0.3s ease;
+    }
+    .service-item:hover {
+      transform: translateY(-10px);
+    }
+    .service-icon {
+      font-size: 3rem;
+      color: #c49b63;
+      margin-bottom: 20px;
+    }
+    .service-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #4d3e2f;
+    }
+    .service-desc {
+      font-size: 1rem;
+      color: #5b4a3d;
+      line-height: 1.4;
+    }
+
+    /* Testimonials Section */
+    section.testimonials {
+      padding: 80px 20px;
+      max-width: 800px;
+      margin: 0 auto 60px;
+      text-align: center;
+      position: relative;
+    }
+    section.testimonials h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #72543d;
+    }
+    .testimonial-slide {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px 40px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+      font-style: italic;
+      color: #5b4a3d;
+      min-height: 140px;
+      display: none;
+    }
+    .testimonial-slide.active {
+      display: block;
+    }
+    .testimonial-author {
+      margin-top: 20px;
+      font-weight: 700;
+      color: #4d3e2f;
+      font-style: normal;
+    }
+    /* Testimonial navigation */
+    .testimonial-nav {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .testimonial-nav button {
+      background: #c49b63;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: none;
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
+    }
+    .testimonial-nav button.active,
+    .testimonial-nav button:hover {
       opacity: 1;
-      transform: translateY(0);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Contact Section */
+    section.contact {
+      padding: 80px 20px 120px;
+      background: #f7f1e9;
+      text-align: center;
+    }
+    section.contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #72543d;
+    }
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #4d3e2f;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 2px solid #c49b63;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #72543d;
+      background: #fff9f0;
+    }
+    form button {
+      width: 100%;
+      background-color: #72543d;
+      color: white;
+      font-size: 1.2rem;
+      padding: 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      box-shadow: 0 6px 15px rgba(114, 84, 61, 0.4);
+    }
+    form button:hover {
+      background-color: #a07b53;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+      color: #9b7f57;
+      background: #fff;
+      border-top: 1px solid #eee;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.6rem;
+      }
+      .services-grid {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
-  <header>My Scroll Animation Site</header>
 
-  <section>
-    <h1 id="title">Welcome to My Website</h1>
-    <p id="text">
-      Scroll down to see the animation in action! This text and title will fade out and slide up as you scroll.
-    </p>
+  <header>
+    <div class="container">
+      <h1>Make Your Wedding Unforgettable</h1>
+      <p>Top-tier live music, DJs, and entertainment to create memories that last a lifetime.</p>
+      <a href="#contact" class="btn-primary">Book Now</a>
+      <a href="#services" class="btn-secondary">Our Services</a>
+    </div>
+  </header>
+
+  <section id="services" class="services">
+    <h2>Our Entertainment Services</h2>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon">🎵</div>
+        <h3 class="service-title">Live Bands</h3>
+        <p class="service-desc">Energetic live bands to get your guests dancing all night long.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🎧</div>
+        <h3 class="service-title">Professional DJs</h3>
+        <p class="service-desc">Expert DJs mixing your favorite tunes with perfect timing and vibe.</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">🎤</div>
+        <h3 class="service-title">MC & Announcements</h3>
+        <p class="service-desc">Keep the event flowing smoothly with professional MC services.</p>
+      </div>
+    </div>
   </section>
 
+  <section class="testimonials">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial-slide active">
+      <p>"The band was amazing and kept everyone on their feet. Truly made our day special!"</p>
+      <div class="testimonial-author">- Sarah & Mike</div>
+    </div>
+    <div class="testimonial-slide">
+      <p>"Our DJ perfectly read the room and played all our favorites. So professional and fun!"</p>
+      <div class="testimonial-author">- Emma & Jake</div>
+    </div>
+    <div class="testimonial-slide">
+      <p>"The MC made the event run smoothly and added great energy to the night."</p>
+      <div class="testimonial-author">- Laura & Ben</div>
+    </div>
+    <div class="testimonial-nav">
+      <button class="active" aria-label="Testimonial 1"></button>
+      <button aria-label="Testimonial 2"></button>
+      <button aria-label="Testimonial 3"></button>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <form onsubmit="alert('Thank you for reaching out! We will get back to you shortly.'); return false;">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Your full name" required />
+      
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+      
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Tell us about your event" required></textarea>
+      
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 Wedding Entertainment Co. All rights reserved.
+  </footer>
+
   <script>
-    const title = document.getElementById('title');
-    const text = document.getElementById('text');
+    // Testimonial slider logic
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const buttons = document.querySelectorAll('.testimonial-nav button');
+    let currentIndex = 0;
 
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-
-      // Calculate scroll progress (0 to 1) for the animation trigger range
-      const start = windowHeight * 0.5;
-      const end = windowHeight * 1.5;
-      let progress = (scrollY - start) / (end - start);
-      progress = Math.min(Math.max(progress, 0), 1);
-
-      // Fade out and slide up based on scroll progress
-      const opacity = 1 - progress;
-      const translateY = -50 * progress; // slide up 50px max
-
-      title.style.opacity = opacity;
-      title.style.transform = `translateY(${translateY}px)`;
-
-      text.style.opacity = opacity;
-      text.style.transform = `translateY(${translateY}px)`;
+    buttons.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        slides[currentIndex].classList.remove('active');
+        buttons[currentIndex].classList.remove('active');
+        currentIndex = i;
+        slides[currentIndex].classList.add('active');
+        buttons[currentIndex].classList.add('active');
+      });
     });
   </script>
+
 </body>
 </html>
